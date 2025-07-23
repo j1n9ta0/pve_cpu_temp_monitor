@@ -1,0 +1,14 @@
+[Unit]
+Description=CPU Temperature Monitor Service
+After=network.target
+
+[Service]
+Type=simple
+# Disable Python's buffering of STDOUT and STDERR, so that output from the service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /usr/local/bin/cpu-temp-monitor.py -c /usr/local/etc/cpu-temp-monitor.conf
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
